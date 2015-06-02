@@ -21,7 +21,7 @@ namespace ATRGamers.ATRSeeder.Forms
         private void ReleaseNotes_Load(object sender, EventArgs e)
         {
             Icon = Resources.PB;
-            webBrowser1.Url = new Uri("http://pure-battlefield.github.io/PureSeeder3/");
+            webBrowser1.Url = new Uri("http://atrstats.com/seeder/releasenotes");
         }
     }
 }

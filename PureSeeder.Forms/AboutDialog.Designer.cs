@@ -1,4 +1,5 @@
-﻿namespace ATRGamers.ATRSeeder.Forms
+﻿using ATRGamers.ATRSeeder.Core.Configuration;
+namespace ATRGamers.ATRSeeder.Forms
 {
     partial class AboutDialog
     {
@@ -44,7 +45,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(127, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "PureSeeder 3";
+            this.label1.Text = Constants.ApplicationName;
             // 
             // label2
             // 
@@ -63,7 +64,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(220, 13);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Created for PURE Battlefield by Brad Rhodes";
+            this.label3.Text = "Created for PURE Battlefield by Brad Rhodes\nAdapted for ATRGamers by John Chamberlain";
             // 
             // versionLabel
             // 
@@ -97,7 +98,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "AboutDialog";
-            this.Text = "About PureSeeder 3";
+            this.Text = "About " + Constants.ApplicationName;
             this.Load += new System.EventHandler(this.AboutDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -31,5 +31,6 @@ namespace ATRGamers.ATRSeeder.Forms
         {
             new ReleaseNotes().ShowDialog();
         }
+
     }
 }

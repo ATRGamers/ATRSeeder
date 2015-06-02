@@ -32,6 +32,7 @@ namespace ATRGamers.ATRSeeder.Forms
         private readonly IdleKickAvoider _idleKickAvoider;
         private readonly ProcessMonitor _processMonitor;
         private readonly ReadyUpper _readyUpper;
+        private readonly Timer _serversRefreshTimer;
         private readonly Timer _browserRefreshTimer;
         private readonly Timer _statusRefreshTimer;
         private readonly Timer _randomSeedTimer;
@@ -40,9 +41,9 @@ namespace ATRGamers.ATRSeeder.Forms
         private int _randMax = 600*1000;
 
         // CancellationTokens
-        private CancellationToken _avoidIdleKickCt;
+        //private CancellationToken _avoidIdleKickCt;
         private CancellationToken _processMonitorCt;
-        private CancellationToken _readyUpdderCt;
+        //private CancellationToken _readyUpdderCt;
 
         private MainForm()
         {
@@ -64,6 +65,7 @@ namespace ATRGamers.ATRSeeder.Forms
             
             _browserRefreshTimer = new Timer();
             _statusRefreshTimer = new Timer();
+            _serversRefreshTimer = new Timer();
             _rand = new Random();
             _randomSeedTimer = new Timer();
 
@@ -134,7 +136,18 @@ namespace ATRGamers.ATRSeeder.Forms
         {
             SetBrowserRefreshTimer();
             SetStatusRefreshTimer();
+            SetServerListRefreshTimer();
             SetRandomSeedTimer();
+        }
+
+        private void SetServerListRefreshTimer()
+        {
+            int serverListRefreshInterval = 300 * 1000;
+
+            _serversRefreshTimer.Interval = serverListRefreshInterval;
+            _serversRefreshTimer.Tick += TimedServerListRefresh;
+            _serversRefreshTimer.Start();
+
         }
 
         private void SetBrowserRefreshTimer()
@@ -178,6 +191,8 @@ namespace ATRGamers.ATRSeeder.Forms
             _randomSeedTimer.Start();
         }
 
+        
+
         private void CreateBindings()
         {
             username.DataBindings.Add("Text", _context.Settings, x => x.Username);
@@ -185,7 +200,7 @@ namespace ATRGamers.ATRSeeder.Forms
             email.DataBindings.Add("Text", _context.Settings, x => x.Email);
 
             currentLoggedInUser.DataBindings.Add("Text", _context.Session, x => x.CurrentLoggedInUser);
-            currentGameLabel.DataBindings.Add("Text", _context.Session, x => x.CurrentGameName);
+            //currentGameLabel.DataBindings.Add("Text", _context.Session, x => x.CurrentGameName);
 
             logging.DataBindings.Add("Checked", _context.Settings, x => x.EnableLogging, false,
                 DataSourceUpdateMode.OnPropertyChanged);
@@ -241,6 +256,13 @@ namespace ATRGamers.ATRSeeder.Forms
                 currentSeedingStatus.ForeColor = Color.Red;
                 currentSeedingStatus.Text = "Not Seeding";
             }
+        }
+
+        private async void TimedServerListRefresh(object sender, EventArgs e)
+        {
+            _context.ImportSettings("WEBCONFIG");
+            await RefreshServerStatuses();
+
         }
 
         private void TimedRefresh(object sender, EventArgs e)
@@ -313,7 +335,7 @@ namespace ATRGamers.ATRSeeder.Forms
             // This is so that only refreshes triggerd by PS will fire Seeding. This will prevent changes
             // made inside the browser (by redirect/javascript/etc.) from firing the Seeding.
             ContextUpdatedHandler handler = null;
-            handler = async (tSender, tE) =>
+            handler = (tSender, tE) =>
             {
                 _context.OnContextUpdate -= handler;
                 //await RefreshServerStatuses();

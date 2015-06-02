@@ -3,8 +3,6 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
 
-[assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
-
 namespace System.Windows.Forms
 {
     public class MessageBoxEx
