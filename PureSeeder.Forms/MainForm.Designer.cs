@@ -178,6 +178,7 @@
             // 
             this.currentLoggedInUser.AutoSize = true;
             this.currentLoggedInUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentLoggedInUser.ForeColor = System.Drawing.Color.Red;
             this.currentLoggedInUser.Location = new System.Drawing.Point(146, 16);
             this.currentLoggedInUser.Name = "currentLoggedInUser";
             this.currentLoggedInUser.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -342,31 +343,16 @@
             // viewReleaseNotesToolStripMenuItem
             // 
             this.viewReleaseNotesToolStripMenuItem.Name = "viewReleaseNotesToolStripMenuItem";
-            this.viewReleaseNotesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.viewReleaseNotesToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.viewReleaseNotesToolStripMenuItem.Text = "About";
             this.viewReleaseNotesToolStripMenuItem.Click += new System.EventHandler(this.viewReleaseNotesToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // saveSettingsDialog
-            // 
-            this.saveSettingsDialog.DefaultExt = "json";
-            this.saveSettingsDialog.Filter = "PURE Seeder Files (*.psjson)|*.psjson|Json files (*.json)|*.json|All files (*.*)|" +
-    "*.*";
-            this.saveSettingsDialog.FilterIndex = 0;
-            this.saveSettingsDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveSettingsDialog_FileOk);
-            // 
-            // importSettingsDialog
-            // 
-            this.importSettingsDialog.Filter = "PURE Seeder Files (*.psjson)|*.psjson|Json files (*.json)|*.json|All files (*.*)|" +
-    "*.*";
-            this.importSettingsDialog.FilterIndex = 0;
-            this.importSettingsDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.importSettingsDialog_FileOk);
             // 
             // autoLogin
             // 
@@ -617,6 +603,7 @@
             // 
             this.currentGameLabel.AutoSize = true;
             this.currentGameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentGameLabel.ForeColor = System.Drawing.Color.Red;
             this.currentGameLabel.Location = new System.Drawing.Point(146, 59);
             this.currentGameLabel.Name = "currentGameLabel";
             this.currentGameLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -638,6 +625,7 @@
             // 
             this.currentSeedingStatus.AutoSize = true;
             this.currentSeedingStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.currentSeedingStatus.ForeColor = System.Drawing.Color.Red;
             this.currentSeedingStatus.Location = new System.Drawing.Point(146, 36);
             this.currentSeedingStatus.Name = "currentSeedingStatus";
             this.currentSeedingStatus.RightToLeft = System.Windows.Forms.RightToLeft.Yes;

@@ -71,8 +71,17 @@ namespace ATRGamers.ATRSeeder.Core.Context
             var jsonText = "";
             if (filename == "WEBCONFIG")
             {
+                int games = 0;
+                if (_settings.GameBattlefieldFourEnabled)
+                {
+                    games += 2;
+                }
+                if (_settings.GameBattlefieldHardlineEnabled)
+                {
+                    games += 1;
+                }
                 WebClient wc = new WebClient();
-                jsonText = wc.DownloadString("http://atrstats.com/api/atrseeder/all/config.json");
+                jsonText = wc.DownloadString("http://atrstats.com/api/atrseeder/" + games.ToString() + "/config.json");
             }
             else
             {

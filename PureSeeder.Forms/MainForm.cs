@@ -116,7 +116,7 @@ namespace ATRGamers.ATRSeeder.Forms
         private async void SpinUpProcessMonitor()
         {
             _processMonitorCt = new CancellationTokenSource().Token;
-            await _processMonitor.CheckOnProcess(_processMonitorCt, () => Constants.Games.Bf4, SynchronizationContext.Current);
+            await _processMonitor.CheckOnProcess(_processMonitorCt, () => _context.Session.CurrentGame, SynchronizationContext.Current);
         }
 
         private void FirstRunCheck()
@@ -353,19 +353,49 @@ namespace ATRGamers.ATRSeeder.Forms
                 _context.OnContextUpdate -= handler;
                 _context.Session.CurrentServer = seederAction.ServerStatus;
 
-                DialogResult result = MessageBoxEx.Show("Seeding in 5 seconds.", "Auto-Seeding", MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, 5000);
+                //DialogResult result = MessageBoxEx.Show("Seeding in 5 seconds.", "Auto-Seeding", MessageBoxButtons.OKCancel,
+                //    MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, 5000);
                 
-                if (result == DialogResult.Cancel)
-                    return;
+                //if (result == DialogResult.Cancel)
+                //    return;
 
                 JoinServer();
             };
             _context.OnContextUpdate += handler;
+
+            UpdateGameType(seederAction.ServerStatus);
+
             await LoadPage(seederAction.ServerStatus.Address);
 
             _browserRefreshTimer.Start();
         }
+
+        private void UpdateGameType(ServerStatus server)
+        {
+            string address = server.Address;
+
+            GameInfo BF4 = Constants.Games.BF4;
+            GameInfo BFH = Constants.Games.BFH;
+
+            if (BF4.UrlMatch.IsMatch(address))
+            {
+                currentGameLabel.ForeColor = Color.Green;
+                _context.Session.CurrentGame = BF4;
+            }
+            else if (BFH.UrlMatch.IsMatch(address))
+            {
+                currentGameLabel.ForeColor = Color.Green;
+                _context.Session.CurrentGame = BFH;
+            }
+            else
+            {
+                currentGameLabel.ForeColor = Color.Red;
+                _context.Session.CurrentGame = Constants.Games.Default;
+            }
+
+
+        }
+
 
         /// <summary>
         /// This method is the event handler for any time the browser is refreshed
@@ -387,7 +417,7 @@ namespace ATRGamers.ATRSeeder.Forms
                 "document.getElementsByClassName('btn btn-primary btn-large large arrow')[0].click()";
 
             RunJavascript(jsCommand);
-            _processController.MinimizeAfterLaunch();
+            //_processController.MinimizeAfterLaunch();
 
             _context.JoinServer();
         }
@@ -513,9 +543,11 @@ namespace ATRGamers.ATRSeeder.Forms
 
         #region UiEvents
 
-        private void saveSettings_Click(object sender, EventArgs e)
+        private async void saveSettings_Click(object sender, EventArgs e)
         {
             _context.Settings.SaveSettings();
+            _context.ImportSettings("WEBCONFIG");
+            await RefreshServerStatuses();
         }
 
         private async void joinServerButton_Click(object sender, EventArgs e)

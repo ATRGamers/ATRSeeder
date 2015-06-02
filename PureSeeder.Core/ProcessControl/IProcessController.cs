@@ -11,7 +11,7 @@ namespace ATRGamers.ATRSeeder.Core.ProcessControl
     public interface IProcessController
     {
         Task StopGame(IDataContext context);
-        Task MinimizeAfterLaunch();
+        //Task MinimizeAfterLaunch();
         //Task<bool> BfIsRunning();
 
         ProcessMonitor GetProcessMonitor();
@@ -26,18 +26,10 @@ namespace ATRGamers.ATRSeeder.Core.ProcessControl
             if (!context.IsSeeding())
                 return;
 
-            var process = Process.GetProcessesByName(Constants.Games.Bf4.ProcessName).FirstOrDefault();
+            var process = Process.GetProcessesByName(context.Session.CurrentGame.ProcessName).FirstOrDefault();
 
             if (process != null)
                 process.Kill();
-        }
-
-        public async Task MinimizeAfterLaunch()
-        {
-            var cts = new CancellationTokenSource();
-            cts.CancelAfter(5 * 60 * 1000);  // Cancel after 5 mins
-
-            await new GameMinimizer().MinimizeGameOnce(cts.Token, () => Constants.Games.Bf4);
         }
 
 //        public Task<bool> BfIsRunning()

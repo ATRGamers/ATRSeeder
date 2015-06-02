@@ -49,7 +49,7 @@ namespace ATRGamers.ATRSeeder.Core.Configuration
 
         public static class Games
         {
-            public static GameInfo Bf4 = new GameInfo()
+            public static GameInfo BF4 = new GameInfo()
             {
                 GameName = "Battlefield 4",
                 ProcessName = "bf4",

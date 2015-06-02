@@ -31,6 +31,12 @@ namespace ATRGamers.ATRSeeder.Core.Context
             set { SetField(ref _currentLoggedInUser, value); }
         }
 
+        public GameInfo CurrentGame
+        {
+            get { return this._currentGame; }
+            set { this._currentGame = value; }
+        }
+
         public string CurrentGameProcessName
         {
             get { return this._currentGame.ProcessName; }
@@ -54,6 +60,11 @@ namespace ATRGamers.ATRSeeder.Core.Context
         public string CurrentGameWindowTitle
         {
             get { return this._currentGame.WindowTitle; }
+        }
+
+        public string CurrentServerName
+        {
+            get { return this._currentServer.Name; }
         }
 
         // Deprecated
