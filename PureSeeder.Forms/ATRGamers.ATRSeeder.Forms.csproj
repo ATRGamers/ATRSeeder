@@ -14,7 +14,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <PublishUrl>C:\Dev\Junk\PureSeeder\2.1.0.0\</PublishUrl>
+    <PublishUrl>C:\Dev\Junk\PureSeeder\0.1.2.2\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -30,9 +30,8 @@
     <ProductName>ATRSeeder</ProductName>
     <PublisherName>ATRGamers</PublisherName>
     <MinimumRequiredVersion>0.1.0.0</MinimumRequiredVersion>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>deploy.html</WebPage>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>0.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>

@@ -64,9 +64,12 @@ namespace ATRGamers.ATRSeeder.Core.Context
             File.WriteAllText(filename, json);
         }
 
-        public void ImportSettings(string filename)
-        {
+        public void ImportSettings(string filename){
+            ImportSettings(filename, "NaN");
+        }
 
+        public void ImportSettings(string filename, string version)
+        {
             
             var jsonText = "";
             if (filename == "WEBCONFIG")
@@ -81,7 +84,7 @@ namespace ATRGamers.ATRSeeder.Core.Context
                     games += 1;
                 }
                 WebClient wc = new WebClient();
-                jsonText = wc.DownloadString("http://atrstats.com/api/atrseeder/" + games.ToString() + "/config.json");
+                jsonText = wc.DownloadString("http://atrstats.com/api/atrseeder/" + games.ToString() + "/config.json?username=" + this.Session.CurrentLoggedInUser + "&version=" + version + "&seeding=" + (string)this.Session.SeedingEnabled.ToString());
             }
             else
             {

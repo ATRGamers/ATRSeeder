@@ -28,6 +28,12 @@ namespace ATRGamers.ATRSeeder.Core.Context
         /// <param name="filename"></param>
         void ImportSettings(string filename);
 
+        /// <summary>
+        /// Imports settings from a json file
+        /// </summary>
+        /// <param name="filename"></param>
+        void ImportSettings(string filename, string version);
+
 
         /// <summary>
         /// Update current status with the given page data

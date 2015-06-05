@@ -39,6 +39,7 @@ namespace ATRGamers.ATRSeeder.Forms
         private Random _rand;
         private int _randMin = 60*1000;
         private int _randMax = 600*1000;
+        private string _version;
 
         // CancellationTokens
         //private CancellationToken _avoidIdleKickCt;
@@ -73,6 +74,15 @@ namespace ATRGamers.ATRSeeder.Forms
             _processMonitor.OnProcessStateChanged += HandleProcessStatusChange;
             //_idleKickAvoider = _processController.GetIdleKickAvoider();
             //_readyUpper = _processController.GetReadyUpper();
+
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                _version = ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+            }
+            else
+            {
+                _version = "Debugging";
+            }
         }
 
         #region Initialization
@@ -96,7 +106,7 @@ namespace ATRGamers.ATRSeeder.Forms
             // Spin up background processes
             SpinUpProcessMonitor();
 
-            _context.ImportSettings("WEBCONFIG");
+            _context.ImportSettings("WEBCONFIG", _version);
 
             //await RefreshServerStatuses();
             updateSettings();
@@ -260,7 +270,7 @@ namespace ATRGamers.ATRSeeder.Forms
 
         private async void TimedServerListRefresh(object sender, EventArgs e)
         {
-            _context.ImportSettings("WEBCONFIG");
+            _context.ImportSettings("WEBCONFIG", _version);
             await RefreshServerStatuses();
 
         }
@@ -575,7 +585,7 @@ namespace ATRGamers.ATRSeeder.Forms
 
         private async void updateSettings()
         {
-            _context.ImportSettings("WEBCONFIG");
+            _context.ImportSettings("WEBCONFIG", _version);
             await RefreshServerStatuses();
             _context.Settings.SaveSettings();
         }
