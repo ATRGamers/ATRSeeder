@@ -94,6 +94,12 @@ namespace ATRGamers.ATRSeeder.Core.Context
             set { SetProperty(_settings, value, x => x.StatusRefreshInterval); }
         }
 
+        public int ServerListRefreshInterval
+        {
+            get { return _settings.ServerListRefreshInterval; }
+            set { SetProperty(_settings, value, x => x.ServerListRefreshInterval); }
+        }
+
         [JsonIgnore]
         public bool MinimizeToTray
         {

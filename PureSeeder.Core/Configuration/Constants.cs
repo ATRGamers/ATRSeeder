@@ -27,6 +27,7 @@ namespace ATRGamers.ATRSeeder.Core.Configuration
             public const string CurrentServer = "CurrentServer";
             public const string RefreshInterval = "RefreshInterval";
             public const string StatusRefreshInterval = "StatusRefreshInterval";
+            public const string ServerListRefreshInterval = "ServerListRefreshInterval";
             public const string MinimizeToTray = "MinimizeToTray";
             public const string AutoLogin = "AutoLogin";
             public const string IdleKickAvoidanceTimer = "IdleKickAvoidanceTimer";

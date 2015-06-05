@@ -10,7 +10,7 @@ using AutoIt;
 
 namespace ATRGamers.ATRSeeder.Core.Monitoring
 {
-    public class IdleKickAvoider
+    public class IdleKickAvoider2
     {
         public Task AvoidIdleKick(CancellationToken token, int numSeconds, Func<GameInfo> getCurrentGame)
         {

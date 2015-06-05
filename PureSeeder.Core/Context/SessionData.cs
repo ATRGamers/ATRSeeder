@@ -12,7 +12,7 @@ namespace ATRGamers.ATRSeeder.Core.Context
             _serverStatuses = new ServerStatusCollection();
         }
         
-        private bool _seedingEnabled = true;
+        private bool _seedingEnabled = false;
         private string _currentLoggedInUser;
         private GameInfo _currentGame = Constants.Games.Default;
         private bool _bfIsRunning;

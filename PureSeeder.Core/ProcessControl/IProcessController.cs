@@ -15,8 +15,8 @@ namespace ATRGamers.ATRSeeder.Core.ProcessControl
         //Task<bool> BfIsRunning();
 
         ProcessMonitor GetProcessMonitor();
-        IdleKickAvoider GetIdleKickAvoider();
-        ReadyUpper GetReadyUpper();
+        //IdleKickAvoider GetIdleKickAvoider();
+        //ReadyUpper GetReadyUpper();
     }
 
     class ProcessController : IProcessController
@@ -46,7 +46,7 @@ namespace ATRGamers.ATRSeeder.Core.ProcessControl
                 });
         }
 
-        public IdleKickAvoider GetIdleKickAvoider()
+        /*public IdleKickAvoider GetIdleKickAvoider()
         {
             return new IdleKickAvoider();
         }
@@ -54,6 +54,6 @@ namespace ATRGamers.ATRSeeder.Core.ProcessControl
         public ReadyUpper GetReadyUpper()
         {
             return new ReadyUpper();
-        }
+        }*/
     }
 }

@@ -80,6 +80,14 @@ namespace ATRGamers.ATRSeeder.Core.Settings
             get { return ((int)this[Constants.SettingNames.StatusRefreshInterval]); }
             set { this[Constants.SettingNames.StatusRefreshInterval] = (int)value; }
         }
+        
+        [UserScopedSetting]
+        [DefaultSettingValue("60")]
+        public int ServerListRefreshInterval
+        {
+            get { return (int)this[Constants.SettingNames.ServerListRefreshInterval]; }
+            set { this[Constants.SettingNames.ServerListRefreshInterval] = (int)value;}
+        }
 
         [UserScopedSetting]
         [DefaultSettingValue("true")]

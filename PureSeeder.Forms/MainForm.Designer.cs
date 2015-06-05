@@ -40,7 +40,7 @@
             this.saveSettings = new System.Windows.Forms.Button();
             this.seedingEnabled = new System.Windows.Forms.CheckBox();
             this.logging = new System.Windows.Forms.CheckBox();
-            this.joinServerButton = new System.Windows.Forms.Button();
+            this.startSeedingButton = new System.Windows.Forms.Button();
             this.refreshInterval = new System.Windows.Forms.TextBox();
             this.refresh = new System.Windows.Forms.Button();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
@@ -96,6 +96,7 @@
             this.MinPlayersCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaxPlayersCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BrowserTab = new System.Windows.Forms.TabPage();
+            this.stopSeedingButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.webControlBindingSource)).BeginInit();
             this.browserPanel.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -154,6 +155,7 @@
             this.username.Name = "username";
             this.username.Size = new System.Drawing.Size(144, 20);
             this.username.TabIndex = 9;
+            this.username.Visible = false;
             // 
             // label3
             // 
@@ -163,6 +165,7 @@
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 10;
             this.label3.Text = "Username";
+            this.label3.Visible = false;
             // 
             // label5
             // 
@@ -201,6 +204,7 @@
             // seedingEnabled
             // 
             this.seedingEnabled.AutoSize = true;
+            this.seedingEnabled.Enabled = false;
             this.seedingEnabled.Location = new System.Drawing.Point(8, 90);
             this.seedingEnabled.Name = "seedingEnabled";
             this.seedingEnabled.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -222,15 +226,16 @@
             this.logging.UseVisualStyleBackColor = true;
             this.logging.Visible = false;
             // 
-            // joinServerButton
+            // startSeedingButton
             // 
-            this.joinServerButton.Location = new System.Drawing.Point(12, 145);
-            this.joinServerButton.Name = "joinServerButton";
-            this.joinServerButton.Size = new System.Drawing.Size(217, 23);
-            this.joinServerButton.TabIndex = 24;
-            this.joinServerButton.Text = "Seed Now";
-            this.joinServerButton.UseVisualStyleBackColor = true;
-            this.joinServerButton.Click += new System.EventHandler(this.joinServerButton_Click);
+            this.startSeedingButton.Enabled = false;
+            this.startSeedingButton.Location = new System.Drawing.Point(15, 141);
+            this.startSeedingButton.Name = "startSeedingButton";
+            this.startSeedingButton.Size = new System.Drawing.Size(210, 23);
+            this.startSeedingButton.TabIndex = 24;
+            this.startSeedingButton.Text = "Start Seeding";
+            this.startSeedingButton.UseVisualStyleBackColor = true;
+            this.startSeedingButton.Click += new System.EventHandler(this.joinServerButton_Click);
             // 
             // refreshInterval
             // 
@@ -759,18 +764,30 @@
             this.BrowserTab.Text = "Browser";
             this.BrowserTab.UseVisualStyleBackColor = true;
             // 
+            // stopSeedingButton
+            // 
+            this.stopSeedingButton.Enabled = false;
+            this.stopSeedingButton.Location = new System.Drawing.Point(225, 141);
+            this.stopSeedingButton.Name = "stopSeedingButton";
+            this.stopSeedingButton.Size = new System.Drawing.Size(210, 23);
+            this.stopSeedingButton.TabIndex = 37;
+            this.stopSeedingButton.Text = "Stop Seeding";
+            this.stopSeedingButton.UseVisualStyleBackColor = true;
+            this.stopSeedingButton.Click += new System.EventHandler(this.stopSeedingButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1126, 705);
+            this.Controls.Add(this.stopSeedingButton);
             this.Controls.Add(this.tabControl2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.saveSettings);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.joinServerButton);
+            this.Controls.Add(this.startSeedingButton);
             this.Controls.Add(this.label1);
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(1142, 733);
@@ -818,7 +835,7 @@
         private System.Windows.Forms.Button saveSettings;
         private System.Windows.Forms.CheckBox seedingEnabled;
         private System.Windows.Forms.CheckBox logging;
-        private System.Windows.Forms.Button joinServerButton;
+        private System.Windows.Forms.Button startSeedingButton;
         private System.Windows.Forms.TextBox refreshInterval;
         private System.Windows.Forms.Button refresh;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
@@ -874,6 +891,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CurrentPlayersCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn MinPlayersCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaxPlayersCol;
+        private System.Windows.Forms.Button stopSeedingButton;
     }
 }
 

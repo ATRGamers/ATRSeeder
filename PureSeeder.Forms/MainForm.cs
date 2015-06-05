@@ -29,9 +29,9 @@ namespace ATRGamers.ATRSeeder.Forms
         private readonly IDataContext _context;
         private readonly IProcessController _processController;
         private readonly ISeederActionFactory _seederActionFactory;
-        private readonly IdleKickAvoider _idleKickAvoider;
+        //private readonly IdleKickAvoider _idleKickAvoider;
         private readonly ProcessMonitor _processMonitor;
-        private readonly ReadyUpper _readyUpper;
+        //private readonly ReadyUpper _readyUpper;
         private readonly Timer _serversRefreshTimer;
         private readonly Timer _browserRefreshTimer;
         private readonly Timer _statusRefreshTimer;
@@ -71,8 +71,8 @@ namespace ATRGamers.ATRSeeder.Forms
 
             _processMonitor = _processController.GetProcessMonitor();
             _processMonitor.OnProcessStateChanged += HandleProcessStatusChange;
-            _idleKickAvoider = _processController.GetIdleKickAvoider();
-            _readyUpper = _processController.GetReadyUpper();
+            //_idleKickAvoider = _processController.GetIdleKickAvoider();
+            //_readyUpper = _processController.GetReadyUpper();
         }
 
         #region Initialization
@@ -98,7 +98,8 @@ namespace ATRGamers.ATRSeeder.Forms
 
             _context.ImportSettings("WEBCONFIG");
 
-            await RefreshServerStatuses();
+            //await RefreshServerStatuses();
+            updateSettings();
 
             await LoadBattlelog();
 
@@ -187,8 +188,7 @@ namespace ATRGamers.ATRSeeder.Forms
             var timerInterval = _rand.Next(_randMin, _randMax); // Random between 1 and 10 mins
             //SetStatus(String.Format("Time until next seed attempt: {0} seconds", (timerInterval / 1000).ToString()), 5);
             _randomSeedTimer.Interval = timerInterval;
-            _randomSeedTimer.Enabled = true;
-            _randomSeedTimer.Start();
+            
         }
 
         
@@ -402,16 +402,19 @@ namespace ATRGamers.ATRSeeder.Forms
             if (BF4.UrlMatch.IsMatch(address))
             {
                 currentGameLabel.ForeColor = Color.Green;
+                currentGameLabel.Text = BF4.GameName;
                 _context.Session.CurrentGame = BF4;
             }
             else if (BFH.UrlMatch.IsMatch(address))
             {
                 currentGameLabel.ForeColor = Color.Green;
+                currentGameLabel.Text = BF4.GameName;
                 _context.Session.CurrentGame = BFH;
             }
             else
             {
                 currentGameLabel.ForeColor = Color.Red;
+                currentGameLabel.Text = Constants.Games.Default.GameName;
                 _context.Session.CurrentGame = Constants.Games.Default;
             }
 
@@ -565,16 +568,50 @@ namespace ATRGamers.ATRSeeder.Forms
 
         #region UiEvents
 
-        private async void saveSettings_Click(object sender, EventArgs e)
+        private void saveSettings_Click(object sender, EventArgs e)
         {
-            _context.Settings.SaveSettings();
+            updateSettings();
+        }
+
+        private async void updateSettings()
+        {
             _context.ImportSettings("WEBCONFIG");
+            await RefreshServerStatuses();
+            _context.Settings.SaveSettings();
+        }
+
+        private void joinServerButton_Click(object sender, EventArgs e)
+        {
+            startSeeding();
+        }
+
+        private void stopSeedingButton_Click(object sender, EventArgs e)
+        {
+            stopSeeding();
+
+        }
+
+        private async void stopSeeding()
+        {
+            this.seedingEnabled.Checked = false;
+            this.startSeedingButton.Enabled = true;
+            this.stopSeedingButton.Enabled = false;
+            _randomSeedTimer.Enabled = false;
+            _randomSeedTimer.Stop();
+            _context.Settings.SaveSettings();
+            await _processController.StopGame(_context);
             await RefreshServerStatuses();
         }
 
-        private async void joinServerButton_Click(object sender, EventArgs e)
+        private async void startSeeding()
         {
-            //AttemptSeeding();
+            this.seedingEnabled.Checked = true;
+            this.stopSeedingButton.Enabled = true;
+            this.startSeedingButton.Enabled = false;
+            _randomSeedTimer.Enabled = true;
+            _randomSeedTimer.Start();
+            _context.Settings.SaveSettings();
+            await RefreshServerStatuses();
             await Seed();
         }
 
@@ -722,12 +759,15 @@ namespace ATRGamers.ATRSeeder.Forms
 
         private void currentLoggedInUser_TextChange(object sender, EventArgs e)
         {
-            if (currentLoggedInUser.Text == Constants.NotLoggedInUsername)
+            if (currentLoggedInUser.Text == Constants.NotLoggedInUsername || currentLoggedInUser.Text == "")
             {
+                stopSeeding();
+                startSeedingButton.Enabled = false;
                 currentLoggedInUser.ForeColor = Color.Red;
             }
             else
             {
+                startSeedingButton.Enabled = true;
                 currentLoggedInUser.ForeColor = Color.Green;
             }
         }

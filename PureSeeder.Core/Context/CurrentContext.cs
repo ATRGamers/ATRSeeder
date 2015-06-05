@@ -187,12 +187,13 @@ namespace ATRGamers.ATRSeeder.Core.Context
 
         public UserStatus GetUserStatus()
         {
-            if(String.Equals(_sessionData.CurrentLoggedInUser, _settings.Username, StringComparison.InvariantCultureIgnoreCase))
-                return UserStatus.Correct;
+            //if(String.Equals(_sessionData.CurrentLoggedInUser, _settings.Username, StringComparison.InvariantCultureIgnoreCase))
+                //return UserStatus.Correct;
             if(String.Equals(_sessionData.CurrentLoggedInUser, Constants.NotLoggedInUsername, StringComparison.InvariantCultureIgnoreCase))
                 return UserStatus.None;
 
-            return UserStatus.Incorrect;
+            //return UserStatus.Incorrect;
+            return UserStatus.Correct;
         }
 
         // Deprecated
